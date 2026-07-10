@@ -2,7 +2,7 @@
 window.TRIBUTE_CONFIG = {
   /* Where family notifications are emailed (FormSubmit).
      First submission sends a confirmation link to this inbox — click it once. */
-  notifyEmail: "michaelseifert52@gmail.com",
+  notifyEmail: "info@seifertcapital.com",
 
   /* Public GitHub repo used as the guest-book database */
   githubOwner: "mseifert522",
