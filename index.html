@@ -30,6 +30,7 @@
         <li><a href="#family">Family</a></li>
         <li><a href="#gallery">Photos</a></li>
         <li><a href="#memories">Memories</a></li>
+        <li><a href="#contribute">Share</a></li>
         <li><a href="#honor">Honor Don</a></li>
       </ul>
     </nav>
@@ -528,41 +529,116 @@
     </div>
   </section>
 
-  <!-- Memories / guestbook style -->
+  <!-- Guest book wall -->
   <section class="memories" id="memories">
-    <div class="container narrow">
+    <div class="container">
       <header class="section-header reveal">
-        <p class="section-eyebrow">In his honor</p>
-        <h2 class="section-title">Share a Memory</h2>
+        <p class="section-eyebrow">From family &amp; friends</p>
+        <h2 class="section-title">Memory Wall</h2>
         <div class="section-rule" aria-hidden="true"></div>
+        <p class="section-sub">
+          Stories, laughs, and quiet moments shared by the people who loved Don.
+        </p>
       </header>
 
-      <div class="memory-prompt reveal">
-        <p>
-          If Don ever lent you a hand, shared a meal, or simply made an ordinary
-          day feel a little better — his family would love to hear it.
-        </p>
-        <p class="memory-note">
-          For now, please send memories and photos to the family, or leave a
-          note when we open the guest book on this page. Every story keeps him close.
-        </p>
+      <div class="memory-wall" id="memory-wall" aria-live="polite">
+        <div class="memory-wall-loading" id="memory-wall-loading">
+          <span class="spinner" aria-hidden="true"></span>
+          Loading memories…
+        </div>
       </div>
 
-      <div class="memory-cards">
-        <article class="memory-card reveal">
-          <p class="memory-quote">
-            “His kindness, steady presence, and willingness to lend a helping
-            hand touched the lives of many.”
-          </p>
-          <p class="memory-attr">— From those who knew him</p>
-        </article>
-        <article class="memory-card reveal reveal-delay-1">
-          <p class="memory-quote">
-            “He found happiness in life’s simple pleasures — and made sure the
-            people he loved felt that happiness too.”
-          </p>
-          <p class="memory-attr">— A life well lived</p>
-        </article>
+      <p class="memory-wall-cta reveal">
+        <a href="#contribute" class="btn-primary">Share your memory</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Contribute form -->
+  <section class="contribute" id="contribute">
+    <div class="container contribute-layout">
+      <header class="section-header light reveal">
+        <p class="section-eyebrow">Open to all who knew him</p>
+        <h2 class="section-title">Add to Don’s Tribute</h2>
+        <div class="section-rule" aria-hidden="true"></div>
+        <p class="section-sub">
+          Leave a written memory, a photo, or both. Your words will appear on the
+          Memory Wall for family and friends to read.
+        </p>
+      </header>
+
+      <div class="contribute-card reveal">
+        <div class="contribute-tabs" role="tablist" aria-label="Contribution type">
+          <button type="button" class="contrib-tab is-active" role="tab" aria-selected="true" data-tab="memory">
+            Share a memory
+          </button>
+          <button type="button" class="contrib-tab" role="tab" aria-selected="false" data-tab="photo">
+            Share a photo
+          </button>
+        </div>
+
+        <form id="tribute-form" class="tribute-form" novalidate>
+          <!-- Honeypot — leave empty -->
+          <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <input type="hidden" name="contribution_type" id="contribution-type" value="memory" />
+
+          <div class="form-row">
+            <label for="contrib-name">Your name <span class="req">*</span></label>
+            <input type="text" id="contrib-name" name="name" required maxlength="80" placeholder="How should we credit you?" />
+          </div>
+
+          <div class="form-row two">
+            <div>
+              <label for="contrib-relation">Your connection to Don</label>
+              <input type="text" id="contrib-relation" name="relation" maxlength="80" placeholder="Friend, coworker, neighbor…" />
+            </div>
+            <div>
+              <label for="contrib-email">Your email <span class="optional">(private)</span></label>
+              <input type="email" id="contrib-email" name="email" maxlength="120" placeholder="Optional — never shown publicly" />
+            </div>
+          </div>
+
+          <div class="form-row" data-panel="memory">
+            <label for="contrib-message">Your memory <span class="req">*</span></label>
+            <textarea id="contrib-message" name="message" rows="5" maxlength="4000" placeholder="A story, a laugh, a day on the farm, something he always said…"></textarea>
+          </div>
+
+          <div class="form-row" data-panel="photo" hidden>
+            <label for="contrib-caption">Caption</label>
+            <input type="text" id="contrib-caption" name="caption" maxlength="200" placeholder="Where was this? Who’s in the photo?" />
+          </div>
+
+          <div class="form-row" data-panel="photo" hidden>
+            <label for="contrib-photo-url">Photo link (URL)</label>
+            <input type="url" id="contrib-photo-url" name="photo_url" maxlength="500" placeholder="https://… paste a link to the photo" />
+            <p class="field-hint">
+              Or describe the photo in the box below and email the file to the family — we’ll add it for you.
+            </p>
+          </div>
+
+          <div class="form-row" data-panel="photo" hidden>
+            <label for="contrib-photo-note">About this photo</label>
+            <textarea id="contrib-photo-note" name="photo_note" rows="3" maxlength="1000" placeholder="Tell us about this moment…"></textarea>
+          </div>
+
+          <div class="form-row" data-panel="memory">
+            <label for="contrib-photo-optional">Photo link <span class="optional">(optional)</span></label>
+            <input type="url" id="contrib-photo-optional" name="memory_photo_url" maxlength="500" placeholder="https://… if you have a photo with your memory" />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="tribute-submit">
+              <span class="btn-label">Add to the tribute</span>
+              <span class="btn-loading" hidden>Sending…</span>
+            </button>
+            <p class="form-privacy">
+              Your name and message may be shown on this page. Email stays private.
+            </p>
+          </div>
+
+          <div class="form-status" id="form-status" role="status" hidden></div>
+        </form>
       </div>
     </div>
   </section>
@@ -653,6 +729,7 @@
     <img src="" alt="" class="lightbox-img" />
   </div>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
